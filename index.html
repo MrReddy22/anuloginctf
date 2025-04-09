@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login Portal</title>
+  <style>
+    body {
+      background-color: #0f0f0f;
+      color: #00ff00;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    h1 {
+      text-shadow: 0 0 5px #00ff00;
+      margin-bottom: 20px;
+    }
+
+    .login-box {
+      border: 2px solid #00ff00;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #00ff00;
+      width: 300px;
+      background-color: rgba(0, 255, 0, 0.05);
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      background-color: #000;
+      border: 1px solid #00ff00;
+      color: #00ff00;
+      padding: 10px;
+      margin: 10px 0;
+      width: 100%;
+      font-family: monospace;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #00ff00;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      font-family: monospace;
+    }
+
+    #output {
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  
+
+  <h1>🛡️ Secure Login Portal</h1>
+
+  <div class="login-box">
+    <input type="text" id="username" placeholder="Username"/>
+    <input type="password" id="password" placeholder="Password"/>
+    <button onclick="login()">Login</button>
+    <div id="output"></div>
+  </div>
+
+  <script>
+    function login() {
+      const userInput = document.getElementById("username").value;
+      const passInput = document.getElementById("password").value;
+
+      // Simulated SQL query (Vulnerable logic)
+      const fakeQuery = `SELECT * FROM users WHERE username = '${userInput}' AND password = '${passInput}'`;
+
+      console.log("[Debug] Executing:", fakeQuery);
+
+      // Check for SQLi bypass
+      if (userInput.includes("admin") && userInput.includes("'--")) {
+        document.getElementById("output").innerHTML = `
+          ✅ <strong>Login Successful!</strong><br/><br/>
+          🎉 Flag: <code>THM{YOU_GOT_IT}</code>
+        `;
+      } else {
+        document.getElementById("output").innerHTML = "❌ Invalid credentials. Try again.";
+      }
+    }
+  </script>
+</body>
+</html>
